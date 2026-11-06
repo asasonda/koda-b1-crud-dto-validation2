@@ -1,0 +1,35 @@
+@baseUrl = http://localhost:5079
+
+GET {{baseUrl}}/api/v1/products
+Accept: application/json
+
+### post
+POST {{baseUrl}}/api/v1/products
+Accept: application/json
+Content-Type: application/json
+
+{
+    "productCode" : "PR004",
+    "name" : "Dkriuk",
+    "price": 10000,
+    "stock": 5,
+    "category": "Makanan"
+}
+
+### Put
+PUT {{baseUrl}}/api/v1/products/PR001
+Accept: application/json
+Content-Type: application/json
+
+{
+    "productCode" : "PR0010",
+    "name" : "Speaker",
+    "price": 90000,
+    "stock": 20,
+    "category": "elektronik"
+}
+
+### delete
+DELETE {{baseUrl}}/api/v1/products/P0003
+Accept: application/json
+Content-Type: application/json

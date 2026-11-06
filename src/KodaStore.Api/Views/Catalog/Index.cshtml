@@ -1,0 +1,55 @@
+@using System.Globalization
+@model IReadOnlyList<KodaStore.Api.DTOs.ProductResponse>
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Catalog Page";
+    var rupiah = CultureInfo.GetCultureInfo("id-ID");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <a asp-contoller="Catalog" asp-action="Create" style="padding: 5px 20px; background: greenyellow; cursor: pointer; border-radius: 10px;">Tambah Data</a>
+    <table border="1" style="margin-top: 10px;">
+        <thead>
+            <tr>
+                <td>ProductCode</td>
+                <td>Product</td>
+                <td>Price</td>
+                <td>Stock</td>
+                <td>Category</td>
+                <td>Aksi</td>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count == 0)
+                {
+                    <tr>
+                        <td>Data kosong</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach(var product in Model)
+                    {
+                        <tr>
+                            <td>@product.ProductCode</td>
+                            <td>@product.Name</td>
+                            <td>@product.Price</td>
+                            <td>@product.Stock</td>
+                            <td>@product.Category</td>
+                            <td><button style="background: yellow;">Edit</button> <button style="background: red;">Delete</button></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+    </table>
+</body>
+</html>
+
