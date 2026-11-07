@@ -21,6 +21,9 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddScoped<IProductRepository, SqlProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
+builder.Services.AddScoped<ICustomerRepository, SqlCustomerRepository>();
+builder.Services.AddScoped<ICustomerServices, CustomerServices>();
+
 var app = builder.Build();
 app.UseExceptionHandler();
 

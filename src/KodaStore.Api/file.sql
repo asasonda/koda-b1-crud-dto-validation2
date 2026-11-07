@@ -7,6 +7,15 @@
 drop TABLE Product;
 drop Table Customers
 
+CREATE TABLE Customers(
+    CustomerId int IDENTITY(1,1) PRIMARY KEY,
+    CustomerCode NVARCHAR(20) not NULL UNIQUE,
+    Name NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(100) NOT null UNIQUE,
+    Phone NVARCHAR(30) NOT NULL,
+    Address NVARCHAR(255)
+)
+
 CREATE TABLE Product (
     ProductId int IDENTITY(1,1) PRIMARY KEY,
     ProductCode NVARCHAR(20) not NULL UNIQUE,
@@ -22,15 +31,6 @@ CREATE TABLE Product (
     CONSTRAINT CK_Product_Stock CHECK(Stock >= 0)
 )
 
-CREATE TABLE Customers(
-    CustomerId int IDENTITY(1,1) PRIMARY KEY,
-    CustomerCode NVARCHAR(20) not NULL UNIQUE,
-    Name NVARCHAR(100) NOT NULL,
-    Email NVARCHAR(100) NOT null UNIQUE,
-    Phone NVARCHAR(30) NOT NULL,
-    Address NVARCHAR(255)
-)
-
 -- cek semua tabel di database
 SELECT name as tabel from sys.tables;
 
@@ -42,3 +42,4 @@ INSERT into dbo.Product (ProductCode, Name, Price, Stock, Category, CustomerId) 
 ('PR002', 'Mouse', 10000, 10, 'Elektronik', 1);
 
 SELECT * FROM dbo.Product;
+SELECT * from dbo.Customers

@@ -3,6 +3,10 @@
 GET {{baseUrl}}/api/v1/products
 Accept: application/json
 
+### product dan customer
+GET {{baseUrl}}/api/v1/products/product-customer
+Accept: application/json
+
 ### post
 POST {{baseUrl}}/api/v1/products
 Accept: application/json
@@ -31,5 +35,46 @@ Content-Type: application/json
 
 ### delete
 DELETE {{baseUrl}}/api/v1/products/P0003
+Accept: application/json
+Content-Type: application/json
+
+
+
+
+
+### get customer
+GET {{baseUrl}}/api/v1/customers
+Accept: application/json
+Content-Type: application/json
+
+
+### post
+POST {{baseUrl}}/api/v1/customers
+Accept: application/json
+Content-Type: application/json
+
+{
+    "customerCode" : "CS002",
+    "name" : "Rizal",
+    "email": "rizal@gmail.com",
+    "phone": "081211337788",
+    "address": "Manado"
+}
+
+### Put
+PUT {{baseUrl}}/api/v1/customers/CS001
+Accept: application/json
+Content-Type: application/json
+
+{
+    "customerCode" : "CS001",
+    "name" : "Budi",
+    "email": "andi@gmail.com",
+    "phone": "083344112367",
+    "address": "Kota Bogor"
+}
+
+### delete
+DELETE {{baseUrl}}/api/v1/customers/CS002
 Accept: application/json
 Content-Type: application/json

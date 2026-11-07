@@ -12,14 +12,44 @@ public sealed class SqlCustomerRepository : ICustomerRepository
     {
         _connectionString = configuration.GetConnectionString("eccomercedb") ?? throw new InvalidOperationException("Gagal connection");
     }
-    public Task<bool> AddCustomersAsync(Customers customers, CancellationToken cancellationToken)
+    public async Task<bool> AddCustomersAsync(Customers customers, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        const string sql = """
+            INSERT INTO dbo.Customers(CustomerCode, Name, Email, Phone, Address) VALUES (@customerCode, @name, @email, @phone, @address)
+        """;
+        await using var connection = new SqlConnection(_connectionString);
+        await connection.OpenAsync(cancellationToken);
+        await using var command = new SqlCommand(sql,connection);
+        AddCustomerParameter(command, customers);
+        try
+        {
+            var affectedRows = await command.ExecuteNonQueryAsync(cancellationToken);
+            return affectedRows == 1;
+        }
+        catch (SqlException e) when (e.Number is 2601 or 2627)
+        {
+            return false;
+        }
+        catch (SqlException e)
+        {
+            Console.WriteLine($"SQL Error tidak terduga: {e.Number} - {e.Message}");
+            return false;
+        }
     }
 
-    public Task<bool> DeleteCustomerAsync(string customerCode, CancellationToken cancellationToken)
+    public async Task<bool> DeleteCustomerAsync(string customerCode, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        const string sql = """
+            DELETE FROM dbo.Customers WHERE
+            CustomerCode = @customerCode;
+        """;
+
+        await using var connection = new SqlConnection(_connectionString);
+        await connection.OpenAsync(cancellationToken);
+        await using var command = new SqlCommand(sql, connection);
+        AddCustomerCode(command, customerCode);
+        var affectedRows = await command.ExecuteNonQueryAsync(cancellationToken);
+        return affectedRows == 1;
     }
 
     public async Task<IReadOnlyList<Customers>> GetAllAsync(CancellationToken cancellationToken)

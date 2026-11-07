@@ -27,6 +27,15 @@ public sealed class ProductController : ControllerBase
         return Ok(product);
     }
 
+    [HttpGet("product-customer")]
+    [ProducesResponseType(typeof(IReadOnlyList<ProductCustomerResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyList<ProductCustomerResponse>), StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<IReadOnlyList<ProductCustomerResponse>>> GetAllWithCustomer(CancellationToken cancellationToken)
+    {
+        var products = await _service.GetAllWithCustomerAsync(cancellationToken);
+        return Ok(products);
+    }
+
 
     [HttpGet("{productCode}")]
     [ProducesResponseType(typeof(ProductResponse), StatusCodes.Status200OK)]
